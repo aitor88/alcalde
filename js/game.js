@@ -11,17 +11,18 @@ const hud = {
     par: { bar: document.getElementById('par-bar'), preview: document.getElementById('par-preview') },
     med: { bar: document.getElementById('med-bar'), preview: document.getElementById('med-preview') },
 };
-// Corrected to use the single decision text element
 const decisionTextEl = document.getElementById('decision-text'); 
 const consequenceTextEl = document.getElementById('consequence-text');
 const gameOverModal = document.getElementById('game-over-modal');
+const timelineEl = document.getElementById('timeline');
 
 // --- GAME LOGIC FUNCTIONS ---
 
-function initGame() {
+function initGame(playerName) {
     gameState = {
+        playerName: playerName || "Alcalde/sa",
         stats: { pop: 50, tes: 50, par: 50, med: 50 },
-        turn: 0,
+        time: { year: 1, day: 1 },
         gameOver: false,
     };
     shuffledCards = [...cards].sort(() => Math.random() - 0.5);
@@ -35,9 +36,21 @@ function initGame() {
 }
 
 function updateUI() {
+    // Update stats bars
     for (const key in gameState.stats) {
         const value = Math.max(0, Math.min(100, gameState.stats[key]));
         hud[key].bar.style.width = `${value}%`;
+    }
+    // Update timeline
+    timelineEl.textContent = `Año ${gameState.time.year}, Día ${gameState.time.day}`;
+}
+
+function advanceTime() {
+    const daysPassed = Math.floor(Math.random() * 6) + 5; // Advance 5 to 10 days
+    gameState.time.day += daysPassed;
+    if (gameState.time.day > 365) {
+        gameState.time.day -= 365;
+        gameState.time.year++;
     }
 }
 
@@ -50,10 +63,10 @@ function drawCard() {
 
     const cardData = shuffledCards[currentCardIndex];
     document.getElementById('card-character-name').textContent = cardData.name;
-    document.getElementById('card-text').textContent = cardData.text;
+    // Replace placeholder with actual player name
+    document.getElementById('card-text').textContent = cardData.text.replace('{playerName}', gameState.playerName);
     document.getElementById('character-image').src = cardData.character;
     
-    // Clear decision text for the new card
     decisionTextEl.style.opacity = 0;
 }
         
@@ -120,7 +133,8 @@ function checkGameOver() {
                 case 'med': reason = isMin ? "Un escándalo mediático ha acabado con tu carrera. Ahora eres un meme eterno." : "Controlas tanto los medios que nadie se cree nada. La gente busca la verdad en Telegram."; break;
             }
             
-            document.getElementById('game-over-text').textContent = `Has durado ${gameState.turn} turnos. ${reason}`;
+            const timeInPower = `Has aguantado ${gameState.time.year - 1} años y ${gameState.time.day} días en el poder.`;
+            document.getElementById('game-over-text').textContent = `${timeInPower} ${reason}`;
             gameOverModal.classList.remove('hidden');
             setTimeout(() => gameOverModal.classList.remove('opacity-0'), 10);
             return true;
@@ -142,9 +156,9 @@ function handleDecision(direction) {
         gameState.stats[key] = Math.max(0, Math.min(100, gameState.stats[key]));
         showFeedback(key, choice.effects[key]);
     }
-    gameState.turn++;
-    updateUI();
     
+    advanceTime();
+    updateUI();
     showConsequences(choice.consequence);
 
     if (!checkGameOver()) {
@@ -181,7 +195,6 @@ function onDragMove(e) {
     
     const cardData = shuffledCards[currentCardIndex];
     
-    // Logic to show the correct decision text based on drag direction
     if (currentX > 20) { // Dragging right
         decisionTextEl.textContent = cardData.right.text;
         decisionTextEl.style.opacity = Math.min(1, Math.abs(currentX) / dragThreshold);
