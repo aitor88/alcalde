@@ -20,10 +20,19 @@
             </svg>
         </div>
         <h1 class="text-5xl font-extrabold text-slate-100 mb-2 title-shadow">Juego de Escaños</h1>
-        <p class="text-slate-400 text-lg mb-8">¿Cómo te llamarás, Alcalde/sa?</p>
+        <p class="text-slate-400 text-lg mb-10">¿Cuánto tiempo aguantarás en el poder?</p>
+        <button id="start-game-button" class="start-button text-xl font-bold w-full max-w-xs py-4 rounded-xl">
+            Empezar Juego
+        </button>
+    </div>
+
+    <!-- Name Input Screen (Initially Hidden) -->
+    <div id="name-screen" class="w-full max-w-md text-center flex-col items-center justify-center p-4 hidden">
+        <h2 class="text-3xl font-bold text-slate-100 mb-4">Elige tu nombre</h2>
+        <p class="text-slate-400 text-lg mb-8">Así se dirigirán a ti en tu mandato.</p>
         <input type="text" id="player-name-input" placeholder="Escribe tu nombre aquí..." class="name-input w-full max-w-xs text-center mb-6">
-        <button id="start-button" class="start-button text-xl font-bold w-full max-w-xs py-4 rounded-xl">
-            Empezar Mandato
+        <button id="continue-button" class="start-button text-xl font-bold w-full max-w-xs py-4 rounded-xl">
+            Continuar
         </button>
     </div>
 
@@ -32,7 +41,7 @@
         <!-- Top HUD -->
         <div id="hud" class="w-full p-4 space-y-3">
             <div id="timeline" class="text-center text-amber-300 font-bold text-lg mb-2">Año 1, Día 1</div>
-             <div class="hud-item">
+            <div class="hud-item">
                 <div class="hud-icon-wrapper bg-blue-500/20"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                 <div class="progress-bar-container"><div id="pop-bar" class="progress-bar bg-blue-400"></div></div>
                 <span id="pop-preview" class="stat-preview"></span>
@@ -55,20 +64,27 @@
         </div>
 
         <!-- Card Area -->
-        <div id="card-area" class="relative flex-grow flex items-center justify-center p-4">
+        <div id="card-area" class="card-area">
             <div id="card" class="card">
-                <img id="character-image" src="" alt="Personaje" class="card-image">
-                <div class="card-text-content">
-                    <h2 id="card-character-name" class="font-bold text-xl mb-2"></h2>
-                    <p id="card-text" class="text-base text-slate-700"></p>
+                <!-- Card Front -->
+                <div class="card-face card-front">
+                    <img id="character-image" src="" alt="Personaje" class="card-image">
+                    <div class="card-text-content">
+                        <h2 id="card-character-name" class="font-bold text-xl mb-2"></h2>
+                        <p id="card-text" class="text-base text-slate-700"></p>
+                    </div>
+                </div>
+                <!-- Card Back (Consequence) -->
+                <div class="card-face card-back">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Consecuencia</h3>
+                    <p id="consequence-text" class="text-lg text-slate-600 font-medium"></p>
                 </div>
             </div>
         </div>
 
-        <!-- Decision & Consequence Area -->
+        <!-- Decision Area -->
         <div id="decision-area" class="w-full h-28 flex flex-col justify-center items-center px-4">
              <p id="decision-text" class="decision-text h-12 text-center font-bold text-lg text-slate-100"></p>
-             <p id="consequence-text" class="text-amber-300 font-medium italic opacity-0 h-10"></p>
         </div>
     </div>
 
