@@ -20,34 +20,34 @@ body {
 /* --- Typography --- */
 .main-title {
     font-family: 'Poppins', sans-serif;
-    font-size: 3rem; /* text-5xl */
-    font-weight: 800; /* extrabold */
-    color: #f1f5f9; /* slate-100 */
+    font-size: 3rem;
+    font-weight: 800;
+    color: #f1f5f9;
     text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 .screen-title {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.875rem; /* text-3xl */
-    font-weight: 700; /* bold */
-    color: #f1f5f9; /* slate-100 */
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #f1f5f9;
 }
 .mayor-name, .timeline {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    font-size: 1.125rem; /* text-lg */
+    font-size: 1.125rem;
 }
-.mayor-name { color: #cbd5e1; } /* slate-300 */
-.timeline { color: #facc15; } /* yellow-400 */
+.mayor-name { color: #cbd5e1; }
+.timeline { color: #facc15; }
 
 /* --- Buttons & Inputs --- */
 .start-button {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: 1.25rem; /* text-xl */
+    font-size: 1.25rem;
     width: 100%;
-    max-width: 288px; /* max-w-xs */
+    max-width: 288px;
     padding: 1rem 0;
-    border-radius: 0.75rem; /* rounded-xl */
+    border-radius: 0.75rem;
     background-color: #facc15;
     color: #1e293b;
     box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2), inset 0 -3px 0 rgba(0,0,0,0.2);
@@ -124,23 +124,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 0.5rem;
 }
 .card {
     position: absolute;
     width: 100%;
-    height: 95%;
-    max-height: 450px;
-    background-color: #e2e8f0; /* slate-200 */
+    height: 100%; /* The card will now respect the container's height */
+    max-width: 380px;
+    max-height: 520px;
+    background-color: #f1f5f9; /* slate-100 */
     color: #1e293b;
-    border-radius: 1.5rem;
-    border: 1px solid #94a3b8; /* slate-400 */
+    border-radius: 1.25rem; /* rounded-2xl */
+    border: 1px solid #cbd5e1; /* slate-300 */
     display: flex;
     flex-direction: column;
     overflow: hidden;
     cursor: grab;
     user-select: none;
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
     transform-origin: center bottom;
 }
@@ -157,7 +158,8 @@ body {
     height: 55%;
     object-fit: cover;
     pointer-events: none;
-    border-bottom: 1px solid #cbd5e1; /* slate-300 */
+    border-bottom: 2px solid #e2e8f0; /* slate-200 */
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.05);
 }
 .card-text-content {
     padding: 1rem 1.25rem;
@@ -170,31 +172,31 @@ body {
 .card-character-name {
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
-    font-size: 1.25rem; /* text-xl */
+    font-size: 1.25rem;
     margin-bottom: 0.5rem;
 }
 .card-dialogue {
-    font-size: 1rem; /* text-base */
-    color: #334155; /* slate-700 */
-    line-height: 1.4;
+    font-size: 1rem;
+    color: #475569; /* slate-600 */
+    line-height: 1.45;
 }
 
 /* --- Text & Feedback --- */
 .decision-text {
-    height: 3rem; /* h-12 */
+    height: 3rem;
     text-align: center;
-    font-weight: 700; /* bold */
-    font-size: 1.125rem; /* text-lg */
-    color: #f1f5f9; /* slate-100 */
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #f1f5f9;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 .consequence-text {
-    height: 2.5rem; /* h-10 */
+    height: 2.5rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    color: #facc15; /* yellow-400 */
+    color: #facc15;
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
 }
