@@ -4,6 +4,7 @@ let shuffledCards = [];
 let currentCardIndex = 0;
 
 // --- DOM ELEMENTS ---
+// References to DOM elements are established. These are assumed to be present in the HTML.
 const cardEl = document.getElementById('card');
 const hud = {
     pop: { bar: document.getElementById('pop-bar'), preview: document.getElementById('pop-preview') },
@@ -15,7 +16,7 @@ const decisionLeftEl = document.getElementById('decision-left');
 const decisionRightEl = document.getElementById('decision-right');
 const consequenceTextEl = document.getElementById('consequence-text');
 const gameOverModal = document.getElementById('game-over-modal');
-const restartButton = document.getElementById('restart-button');
+// The 'restartButton' constant is removed from here. It's now handled only in main.js
 
 // --- GAME LOGIC FUNCTIONS ---
 
@@ -32,7 +33,7 @@ function initGame() {
 
     updateUI();
     drawCard();
-    addEventListeners();
+    addDragListeners(); // Renamed for clarity
 }
 
 function updateUI() {
@@ -214,7 +215,7 @@ function onDragEnd() {
     }
 }
 
-function addEventListeners() {
+function addDragListeners() {
     cardEl.addEventListener('mousedown', onDragStart);
     document.addEventListener('mousemove', onDragMove);
     document.addEventListener('mouseup', onDragEnd);
@@ -222,6 +223,4 @@ function addEventListeners() {
     cardEl.addEventListener('touchstart', onDragStart);
     document.addEventListener('touchmove', onDragMove);
     document.addEventListener('touchend', onDragEnd);
-    
-    restartButton.addEventListener('click', initGame);
 }
