@@ -173,39 +173,48 @@ function handleDecision(direction) {
 }
 
 
-// --- DRAG LOGIC ---
+// --- DRAG LOGIC (REBUILT FOR RESPONSIVENESS) ---
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
 let dragThreshold = 50;
 
+// Helper to get correct X coordinate from both mouse and touch events
+function getEventX(e) {
+    return e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+}
+
 function onDragStart(e) {
-    if(gameState.gameOver) return;
+    if (gameState.gameOver) return;
     isDragging = true;
-    startX = e.pageX || e.touches[0].pageX;
+    startX = getEventX(e);
     cardEl.classList.add('dragging');
 }
 
 function onDragMove(e) {
     if (!isDragging) return;
-    currentX = (e.pageX || e.touches[0].pageX) - startX;
+
+    // Prevent default browser actions like scrolling on mobile
+    if (e.type.startsWith('touch')) {
+        e.preventDefault();
+    }
+
+    currentX = getEventX(e) - startX;
     
     const rotation = currentX / 20;
     cardEl.style.transform = `translateX(${currentX}px) rotate(${rotation}deg)`;
     
     const cardData = shuffledCards[currentCardIndex];
     
-    if (currentX > 20) { // Dragging right
+    const opacity = Math.min(1, Math.abs(currentX) / dragThreshold);
+    decisionTextEl.style.opacity = opacity;
+
+    if (currentX > 0) { // Dragging right
         decisionTextEl.textContent = cardData.right.text;
-        decisionTextEl.style.opacity = Math.min(1, Math.abs(currentX) / dragThreshold);
         showPreview('right');
-    } else if (currentX < -20) { // Dragging left
+    } else if (currentX < 0) { // Dragging left
         decisionTextEl.textContent = cardData.left.text;
-        decisionTextEl.style.opacity = Math.min(1, Math.abs(currentX) / dragThreshold);
         showPreview('left');
-    } else { // Center
-        decisionTextEl.style.opacity = 0;
-        hidePreview();
     }
 }
 
@@ -214,23 +223,32 @@ function onDragEnd() {
     isDragging = false;
     cardEl.classList.remove('dragging');
     hidePreview();
-    decisionTextEl.style.opacity = 0;
-
-    if (currentX > dragThreshold) {
-        handleDecision('right');
-    } else if (currentX < -dragThreshold) {
-        handleDecision('left');
-    } else {
+    
+    // Animate card back to center if not swiped far enough
+    if (Math.abs(currentX) < dragThreshold) {
+        cardEl.style.transition = 'transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         cardEl.style.transform = 'translateX(0) rotate(0)';
+        decisionTextEl.style.opacity = 0;
+    } else {
+        // Handle the decision
+        if (currentX > dragThreshold) {
+            handleDecision('right');
+        } else if (currentX < -dragThreshold) {
+            handleDecision('left');
+        }
     }
+    // Reset currentX
+    currentX = 0;
 }
 
 function addDragListeners() {
+    // Mouse events
     cardEl.addEventListener('mousedown', onDragStart);
     document.addEventListener('mousemove', onDragMove);
     document.addEventListener('mouseup', onDragEnd);
     
-    cardEl.addEventListener('touchstart', onDragStart);
-    document.addEventListener('touchmove', onDragMove);
+    // Touch events
+    cardEl.addEventListener('touchstart', onDragStart, { passive: false });
+    document.addEventListener('touchmove', onDragMove, { passive: false });
     document.addEventListener('touchend', onDragEnd);
 }
