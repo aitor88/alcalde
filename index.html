@@ -20,9 +20,10 @@
             </svg>
         </div>
         <h1 class="text-5xl font-extrabold text-slate-100 mb-2 title-shadow">Juego de Escaños</h1>
-        <p class="text-slate-400 text-lg mb-10">¿Cuánto tiempo aguantarás en el poder?</p>
+        <p class="text-slate-400 text-lg mb-8">¿Cómo te llamarás, Alcalde/sa?</p>
+        <input type="text" id="player-name-input" placeholder="Escribe tu nombre aquí..." class="name-input w-full max-w-xs text-center mb-6">
         <button id="start-button" class="start-button text-xl font-bold w-full max-w-xs py-4 rounded-xl">
-            Empezar Partida
+            Empezar Mandato
         </button>
     </div>
 
@@ -30,6 +31,7 @@
     <div id="game-container" class="w-full max-w-md h-full flex-col hidden">
         <!-- Top HUD -->
         <div id="hud" class="w-full p-4 space-y-3">
+            <div id="timeline" class="text-center text-amber-300 font-bold text-lg mb-2">Año 1, Día 1</div>
              <div class="hud-item">
                 <div class="hud-icon-wrapper bg-blue-500/20"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                 <div class="progress-bar-container"><div id="pop-bar" class="progress-bar bg-blue-400"></div></div>
