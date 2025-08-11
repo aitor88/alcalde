@@ -2,7 +2,7 @@ const cards = [
     // --- Cartas de Sátira y Humor ---
     {
         name: "Izan Putiérrez",
-        text: "Una startup de patinetes eléctricos ha llenado las aceras. Los jubilados amenazan con usarlos de barricada.",
+        text: "Mis patinetes son el futuro, alcalde, pero los jubilados los usan de barricada. ¿Apoyarás el progreso o cederás ante ellos?",
         character: "https://placehold.co/300x400/10b981/ffffff?text=Emprendedor",
         left: {
             text: "Multazo y que los retiren",
@@ -17,7 +17,7 @@ const cards = [
     },
     {
         name: "Monseñor Benigno",
-        text: "La oposición exige que la Iglesia pague el IBI por la Catedral. Te he pedido una 'reunión discreta'.",
+        text: "La Catedral es un lugar de culto, no un negocio. ¿Nos obligarás a pagar el IBI como a cualquier empresa, alcalde?",
         character: "https://placehold.co/300x400/8b5cf6/ffffff?text=Obispo",
         left: {
             text: "La ley es la ley. Que paguen.",
@@ -32,7 +32,7 @@ const cards = [
     },
     {
         name: "Paco 'El Cuñao'",
-        text: "Te ofrezco mi escultura 'vanguardista' por un módico precio para la nueva rotonda. Es un chollo.",
+        text: "Primo, mi escultura para la rotonda es un chollo y lo sabes. ¿Vas a hacer la vista gorda o me vas a tratar como a un extraño?",
         character: "https://placehold.co/300x400/ec4899/ffffff?text=Cuñado",
         left: {
             text: "¡Qué arte! Adjudicado.",
@@ -47,7 +47,7 @@ const cards = [
     },
     {
         name: "Agustín Fasto",
-        text: "Quiero contratar a un DJ famoso por el triple del presupuesto para las fiestas. 'Dará prestigio', te aseguro.",
+        text: "Alcalde, un DJ famoso nos dará prestigio en las fiestas, aunque cueste el triple del presupuesto. ¿Invertimos en imagen?",
         character: "https://placehold.co/300x400/f97316/ffffff?text=Concejal",
         left: {
             text: "Que suene la música",
@@ -62,7 +62,7 @@ const cards = [
     },
     {
         name: "Manolo del Bar",
-        text: "Quiero poner más mesas en la terraza, ocupando media acera. Me conoces de siempre, ¡enróllate!",
+        text: "Conozco tus problemas, alcalde, pero necesito más mesas en la terraza para sobrevivir. ¿Me harás un favor?",
         character: "https://placehold.co/300x400/3b82f6/ffffff?text=Hostelero",
         left: {
             text: "Por supuesto, Manolo.",
@@ -78,7 +78,7 @@ const cards = [
     // --- Cartas de Calado y Decisiones Serias ---
     {
         name: "José Huelgas",
-        text: "La fábrica de cerámicas, el corazón del pueblo, anuncia su cierre. Cientos de familias a la calle. Hay que actuar ya.",
+        text: "La fábrica cierra y nos deja en la calle. ¿Vas a rescatarnos con una subvención o nos abandonarás a nuestra suerte?",
         character: "https://placehold.co/300x400/475569/ffffff?text=Sindicalista",
         left: {
             text: "Subvención millonaria para que se queden.",
@@ -93,7 +93,7 @@ const cards = [
     },
     {
         name: "Begoña Ladrillo",
-        text: "Mi constructora quiere edificar una urbanización de lujo en 'El Pinar', el último pulmón verde del municipio.",
+        text: "Mi urbanización de lujo en 'El Pinar' traerá riqueza. ¿Protegerás unos cuantos árboles o apostarás por el desarrollo económico?",
         character: "https://placehold.co/300x400/ca8a04/ffffff?text=Promotora",
         left: {
             text: "¡A recalificar! El progreso es imparable.",
@@ -108,7 +108,7 @@ const cards = [
     },
     {
         name: "Dra. Ana Remedios",
-        text: "Nos exigen recortar el presupuesto del centro de salud. O despedimos personal o cerramos las urgencias por la noche.",
+        text: "Nos obligan a recortar en el centro de salud. ¿Qué sacrificamos, alcalde, las urgencias nocturnas o el puesto de mis compañeros?",
         character: "https://placehold.co/300x400/dc2626/ffffff?text=Doctora",
         left: {
             text: "Cerraremos las urgencias nocturnas.",
@@ -123,7 +123,7 @@ const cards = [
     },
     {
         name: "Antonio Candado",
-        text: "La inseguridad en mi barrio es insostenible. Los vecinos tenemos miedo de salir por la noche. ¡Haga algo!",
+        text: "Tenemos miedo de salir por la noche en nuestro propio barrio. ¿Pondrás más policía o invertirás en programas sociales que tardarán años?",
         character: "https://placehold.co/300x400/57534e/ffffff?text=Vecino",
         left: {
             text: "Más presencia policial en las calles.",
@@ -138,7 +138,7 @@ const cards = [
     },
     {
         name: "Gema Verde",
-        text: "El río baja de un color sospechoso. Creemos que una de las industrias del polígono está vertiendo residuos ilegalmente.",
+        text: "El río baja de un color muy feo y creemos que es por los vertidos de una fábrica. ¿Abrirás una investigación o mirarás para otro lado?",
         character: "https://placehold.co/300x400/059669/ffffff?text=Ecologista",
         left: {
             text: "Abrir una investigación a fondo.",
