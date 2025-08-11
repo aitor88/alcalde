@@ -2,7 +2,7 @@ const cards = [
     {
         name: "Izan Putiérrez",
         text: "Mis patinetes son el futuro, {playerName}, pero los jubilados los usan de barricada. ¿Apoyarás el progreso o cederás ante ellos?",
-        character: "https://placehold.co/400x300/10b981/ffffff?text=Emprendedor",
+        character: "assets/characters/emprendedor_izan.png",
         left: {
             text: "Multazo y que los retiren",
             effects: { pop: 7, tes: 4, med: -5, par: 0 },
@@ -17,7 +17,7 @@ const cards = [
     {
         name: "Monseñor Benigno",
         text: "La Catedral es un lugar de culto, no un negocio. ¿Nos obligarás a pagar el IBI como a cualquier empresa, {playerName}?",
-        character: "https://placehold.co/400x300/8b5cf6/ffffff?text=Obispo",
+        character: "assets/characters/obispo_benigno.png",
         left: {
             text: "La ley es la ley. Que paguen.",
             effects: { pop: 5, tes: 10, med: 0, par: -5 },
@@ -32,7 +32,7 @@ const cards = [
     {
         name: "Paco 'El Cuñao'",
         text: "Primo, mi escultura para la rotonda es un chollo y lo sabes. ¿Vas a hacer la vista gorda o me vas a tratar como a un extraño?",
-        character: "https://placehold.co/400x300/ec4899/ffffff?text=Cuñado",
+        character: "assets/characters/cunao_paco.png",
         left: {
             text: "¡Qué arte! Adjudicado.",
             effects: { pop: -8, tes: -10, med: 0, par: 5 },
@@ -47,7 +47,7 @@ const cards = [
     {
         name: "Dra. Ana Remedios",
         text: "Nos obligan a recortar en el centro de salud. ¿Qué sacrificamos, {playerName}, las urgencias nocturnas o el puesto de mis compañeros?",
-        character: "https://placehold.co/400x300/dc2626/ffffff?text=Doctora",
+        character: "assets/characters/doctora_ana.png",
         left: {
             text: "Cerraremos las urgencias nocturnas.",
             effects: { pop: -12, tes: 6, med: -5, par: 0 },
