@@ -15,6 +15,7 @@ const decisionTextEl = document.getElementById('decision-text');
 const consequenceTextEl = document.getElementById('consequence-text');
 const gameOverModal = document.getElementById('game-over-modal');
 const timelineEl = document.getElementById('timeline');
+const mayorNameDisplayEl = document.getElementById('mayor-name-display');
 
 // --- GAME LOGIC FUNCTIONS ---
 
@@ -24,16 +25,15 @@ function initGame(playerName) {
         stats: { pop: 50, tes: 50, par: 50, med: 50 },
         time: { year: 1, day: 1 },
         gameOver: false,
-        isCardFlipping: false,
     };
     shuffledCards = [...cards].sort(() => Math.random() - 0.5);
     currentCardIndex = 0;
     
-    gameOverModal.classList.add('hidden', 'opacity-0');
-    cardEl.classList.remove('is-flipped');
+    gameOverModal.classList.add('hidden');
+    mayorNameDisplayEl.textContent = `Alcalde/sa ${gameState.playerName}`;
 
     updateUI();
-    drawCard();
+    drawCard(true); // Initial draw with entry animation
     addDragListeners();
 }
 
@@ -54,7 +54,7 @@ function advanceTime() {
     }
 }
 
-function drawCard() {
+function drawCard(isInitialDraw = false) {
     if (gameState.gameOver) return;
     if (currentCardIndex >= shuffledCards.length) {
         currentCardIndex = 0;
@@ -67,6 +67,14 @@ function drawCard() {
     document.getElementById('character-image').src = cardData.character;
     
     decisionTextEl.style.opacity = 0;
+
+    // Entry animation for new cards
+    if (isInitialDraw) {
+        cardEl.classList.add('entering');
+    }
+    setTimeout(() => {
+        cardEl.classList.remove('entering');
+    }, 50);
 }
         
 function showFeedback(stat, change) {
@@ -106,6 +114,14 @@ function hidePreview() {
         hud[key].preview.classList.remove('visible');
     }
 }
+
+function showConsequences(consequenceText) {
+    consequenceTextEl.textContent = consequenceText;
+    consequenceTextEl.style.opacity = 1;
+    setTimeout(() => {
+        consequenceTextEl.style.opacity = 0;
+    }, 2500); // Consequence visible for 2.5 seconds
+}
         
 function checkGameOver() {
     for (const key in gameState.stats) {
@@ -124,7 +140,6 @@ function checkGameOver() {
             const timeInPower = `Has aguantado ${gameState.time.year - 1} años y ${gameState.time.day} días en el poder.`;
             document.getElementById('game-over-text').textContent = `${timeInPower} ${reason}`;
             gameOverModal.classList.remove('hidden');
-            setTimeout(() => gameOverModal.classList.remove('opacity-0'), 10);
             return true;
         }
     }
@@ -132,69 +147,61 @@ function checkGameOver() {
 }
 
 function handleDecision(direction) {
-    if (gameState.isCardFlipping) return;
-    gameState.isCardFlipping = true;
-
     const cardData = shuffledCards[currentCardIndex];
     const choice = (direction === 'left') ? cardData.left : cardData.right;
     
-    // 1. Apply effects and update stats
+    // Animate card flying off
+    const flyDirection = direction === 'left' ? -1 : 1;
+    cardEl.style.transition = 'transform 0.3s ease-in, opacity 0.3s ease-in';
+    cardEl.style.transform = `translateX(${flyDirection * 500}px) rotate(${flyDirection * 30}deg) scale(0.8)`;
+    cardEl.style.opacity = 0;
+    
+    // Update stats and show consequences
     for (const key in choice.effects) {
         gameState.stats[key] += choice.effects[key];
         gameState.stats[key] = Math.max(0, Math.min(100, gameState.stats[key]));
         showFeedback(key, choice.effects[key]);
     }
     advanceTime();
-    updateUI();
+    showConsequences(choice.consequence);
+    
+    // Check for game over after updating stats
+    if (checkGameOver()) return;
 
-    // 2. Show consequence on card back and flip it
-    consequenceTextEl.textContent = choice.consequence;
-    cardEl.classList.add('is-flipped');
-    cardEl.classList.add('is-flipping');
-
-    // 3. Check for game over after stats are updated
-    if (checkGameOver()) {
-        return; // Stop the flow if game is over
-    }
-
-    // 4. Wait for the player to read the consequence
+    // Prepare for next card
     setTimeout(() => {
-        // 5. Flip back to the front
-        cardEl.classList.remove('is-flipped');
-
-        // 6. After the flip-back animation is done, draw the next card
-        setTimeout(() => {
-            currentCardIndex++;
-            drawCard();
-            gameState.isCardFlipping = false;
-            cardEl.classList.remove('is-flipping');
-        }, 600); // This should match the CSS transition duration
-
-    }, 3000); // Time to read the consequence
+        updateUI();
+        currentCardIndex++;
+        // Reset card style off-screen before drawing
+        cardEl.style.transition = 'none';
+        cardEl.style.transform = 'translateX(0) rotate(0) scale(1)';
+        cardEl.style.opacity = 1;
+        cardEl.classList.add('entering'); // Prepare for entry animation
+        drawCard();
+    }, 300); // Wait for fly-off animation to finish
 }
 
-
-// --- DRAG LOGIC ---
+// --- DRAG LOGIC (ROBUST & RESPONSIVE) ---
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
-let dragThreshold = 50;
+const dragThreshold = 50;
 
 function getEventX(e) {
     return e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
 }
 
 function onDragStart(e) {
-    if (gameState.gameOver || gameState.isCardFlipping) return;
+    if (gameState.gameOver) return;
     isDragging = true;
     startX = getEventX(e);
-    // Remove transition during drag for direct manipulation
-    cardEl.style.transition = 'none';
+    cardEl.classList.add('dragging');
+    cardEl.style.transition = 'none'; // Direct manipulation
 }
 
 function onDragMove(e) {
     if (!isDragging) return;
-    if (e.type.startsWith('touch')) { e.preventDefault(); }
+    if (e.type.startsWith('touch')) e.preventDefault();
 
     currentX = getEventX(e) - startX;
     const rotation = currentX / 20;
@@ -216,26 +223,17 @@ function onDragMove(e) {
 function onDragEnd() {
     if (!isDragging) return;
     isDragging = false;
+    cardEl.classList.remove('dragging');
     hidePreview();
-    
-    // Restore transition for the snap-back or decision animation
-    cardEl.style.transition = 'transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+    decisionTextEl.style.opacity = 0;
 
     if (Math.abs(currentX) < dragThreshold) {
+        // Snap back to center
+        cardEl.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         cardEl.style.transform = 'translateX(0) rotate(0)';
-        decisionTextEl.style.opacity = 0;
     } else {
-        // Hide decision text and fly the card off-screen
-        decisionTextEl.style.opacity = 0;
-        const flyDirection = currentX > 0 ? 1 : -1;
-        cardEl.style.transform = `translateX(${flyDirection * 500}px) rotate(${flyDirection * 30}deg)`;
-        
-        // Handle the decision after the card flies off
-        setTimeout(() => {
-            cardEl.style.transition = 'none';
-            cardEl.style.transform = 'translateX(0) rotate(0)'; // Reset position off-screen
-            handleDecision(currentX > 0 ? 'right' : 'left');
-        }, 200);
+        // Handle decision
+        handleDecision(currentX > 0 ? 'right' : 'left');
     }
     currentX = 0;
 }
@@ -245,7 +243,7 @@ function addDragListeners() {
     document.addEventListener('mousemove', onDragMove);
     document.addEventListener('mouseup', onDragEnd);
     
-    cardEl.addEventListener('touchstart', onDragStart, { passive: false });
+    cardEl.addEventListener('touchstart', onDragStart, { passive: true });
     document.addEventListener('touchmove', onDragMove, { passive: false });
     document.addEventListener('touchend', onDragEnd);
 }
