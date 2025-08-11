@@ -8,27 +8,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-slate-900 text-white overflow-hidden h-screen flex items-center justify-center">
 
     <!-- Main Menu Screen -->
-    <div id="main-menu" class="w-full max-w-md text-center flex flex-col items-center justify-center p-4">
+    <div id="main-menu" class="screen w-full max-w-md text-center flex flex-col items-center justify-center p-4">
         <div class="logo mx-auto mb-4">
             <svg class="w-20 h-20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 5L61.2257 35.5063H94.0211L66.3977 55.9937L77.6234 86.4999L50 66L22.3766 86.4999L33.6023 55.9937L5.97887 35.5063H38.7743L50 5Z" fill="#FBBF24"/>
             </svg>
         </div>
-        <h1 class="text-5xl font-extrabold text-slate-100 mb-2 title-shadow">Juego de Escaños</h1>
+        <h1 class="text-5xl font-extrabold text-slate-100 mb-2 title-shadow" style="font-family: 'Poppins', sans-serif;">Juego de Escaños</h1>
         <p class="text-slate-400 text-lg mb-10">¿Cuánto tiempo aguantarás en el poder?</p>
         <button id="start-game-button" class="start-button text-xl font-bold w-full max-w-xs py-4 rounded-xl">
             Empezar Juego
         </button>
     </div>
 
-    <!-- Name Input Screen (Initially Hidden) -->
-    <div id="name-screen" class="w-full max-w-md text-center flex flex-col items-center justify-center p-4 hidden">
-        <h2 class="text-3xl font-bold text-slate-100 mb-4">Elige tu nombre</h2>
+    <!-- Name Input Screen -->
+    <div id="name-screen" class="screen w-full max-w-md text-center flex-col items-center justify-center p-4 hidden">
+        <h2 class="text-3xl font-bold text-slate-100 mb-4" style="font-family: 'Poppins', sans-serif;">Elige tu nombre</h2>
         <p class="text-slate-400 text-lg mb-8">Así se dirigirán a ti en tu mandato.</p>
         <input type="text" id="player-name-input" placeholder="Escribe tu nombre aquí..." class="name-input w-full max-w-xs text-center mb-6">
         <button id="continue-button" class="start-button text-xl font-bold w-full max-w-xs py-4 rounded-xl">
@@ -36,12 +36,14 @@
         </button>
     </div>
 
-
-    <!-- Game Container (Initially Hidden) -->
-    <div id="game-container" class="w-full max-w-md h-full flex flex-col hidden">
+    <!-- Game Container -->
+    <div id="game-container" class="screen w-full max-w-md h-full flex-col hidden">
         <!-- Top HUD -->
         <div id="hud" class="w-full p-4 space-y-3">
-            <div id="timeline" class="text-center text-amber-300 font-bold text-lg mb-2">Año 1, Día 1</div>
+            <div class="flex justify-between items-center mb-3">
+                <div id="mayor-name-display" class="font-bold text-lg text-slate-200"></div>
+                <div id="timeline" class="text-amber-300 font-bold text-lg"></div>
+            </div>
              <div class="hud-item">
                 <div class="hud-icon-wrapper bg-blue-500/20"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                 <div class="progress-bar-container"><div id="pop-bar" class="progress-bar bg-blue-400"></div></div>
@@ -67,30 +69,23 @@
         <!-- Card Area -->
         <div id="card-area" class="card-area">
             <div id="card" class="card">
-                <!-- Card Front -->
-                <div class="card-face card-front">
-                    <img id="character-image" src="" alt="Personaje" class="card-image">
-                    <div class="card-text-content">
-                        <h2 id="card-character-name" class="font-bold text-xl mb-2"></h2>
-                        <p id="card-text" class="text-base text-slate-700"></p>
-                    </div>
-                </div>
-                <!-- Card Back (Consequence) -->
-                <div class="card-face card-back">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Consecuencia</h3>
-                    <p id="consequence-text" class="text-lg text-slate-600 font-medium"></p>
+                <img id="character-image" src="" alt="Personaje" class="card-image">
+                <div class="card-text-content">
+                    <h2 id="card-character-name" class="font-bold text-xl mb-2"></h2>
+                    <p id="card-text" class="text-base text-slate-700"></p>
                 </div>
             </div>
         </div>
 
-        <!-- Decision Area -->
+        <!-- Decision & Consequence Area -->
         <div id="decision-area" class="w-full h-28 flex flex-col justify-center items-center px-4">
              <p id="decision-text" class="decision-text h-12 text-center font-bold text-lg text-slate-100"></p>
+             <p id="consequence-text" class="consequence-text text-amber-300 font-medium italic opacity-0 h-10"></p>
         </div>
     </div>
 
     <!-- Game Over Modal -->
-    <div id="game-over-modal" class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm flex-col items-center justify-center text-center p-8 hidden opacity-0 transition-opacity">
+    <div id="game-over-modal" class="screen absolute inset-0 bg-slate-900/80 backdrop-blur-sm flex-col items-center justify-center text-center p-8 hidden">
         <h2 id="game-over-title" class="text-4xl font-extrabold text-red-500 mb-4 title-shadow">¡FIN DE LA PARTIDA!</h2>
         <p id="game-over-text" class="text-xl mb-8 text-slate-300"></p>
         <button id="restart-button" class="start-button text-xl font-bold w-full max-w-xs py-4 rounded-xl">Volver al Menú</button>
