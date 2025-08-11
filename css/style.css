@@ -124,14 +124,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
+    padding: 1rem 0.5rem; /* Added vertical padding */
     min-height: 0;
 }
 .card {
-    position: absolute;
-    width: 90%;
+    position: relative; /* Changed from absolute */
+    width: 100%;
+    height: 100%;
     max-width: 380px;
-    aspect-ratio: 3 / 4.2;
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
     color: #1e293b;
     border-radius: 1.25rem;
@@ -143,7 +143,7 @@ body {
     user-select: none;
     box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.25);
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
-    transform-origin: center bottom;
+    transform-origin: center center; /* Changed for better animation */
 }
 .card.entering {
     opacity: 0;
