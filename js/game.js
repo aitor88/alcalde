@@ -120,7 +120,7 @@ function showConsequences(consequenceText) {
     consequenceTextEl.style.opacity = 1;
     setTimeout(() => {
         consequenceTextEl.style.opacity = 0;
-    }, 2500); // Consequence visible for 2.5 seconds
+    }, 2800); // Consequence visible for 2.8 seconds
 }
         
 function checkGameOver() {
@@ -178,14 +178,14 @@ function handleDecision(direction) {
         cardEl.style.opacity = 1;
         cardEl.classList.add('entering'); // Prepare for entry animation
         drawCard();
-    }, 300); // Wait for fly-off animation to finish
+    }, 400); // Wait for fly-off animation to finish
 }
 
 // --- DRAG LOGIC (ROBUST & RESPONSIVE) ---
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
-const dragThreshold = 50;
+const dragThreshold = 60; // Increased threshold for a better feel
 
 function getEventX(e) {
     return e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
@@ -225,14 +225,15 @@ function onDragEnd() {
     isDragging = false;
     cardEl.classList.remove('dragging');
     hidePreview();
-    decisionTextEl.style.opacity = 0;
 
     if (Math.abs(currentX) < dragThreshold) {
         // Snap back to center
         cardEl.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         cardEl.style.transform = 'translateX(0) rotate(0)';
+        decisionTextEl.style.opacity = 0;
     } else {
         // Handle decision
+        decisionTextEl.style.opacity = 0;
         handleDecision(currentX > 0 ? 'right' : 'left');
     }
     currentX = 0;
