@@ -3,43 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Escaños: Edición Alcalde</title>
-    <!-- Enlace al archivo de estilos CSS -->
+    <title>Juego de Escaños</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Librería externa para estilos rápidos (Tailwind) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fuentes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-800 text-white overflow-hidden h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-slate-900 text-white overflow-hidden h-screen flex items-center justify-center p-4">
 
-    <!-- Game Container -->
-    <div id="game-container" class="w-full max-w-md h-full flex flex-col">
+    <!-- Main Menu Screen -->
+    <div id="main-menu" class="w-full max-w-md text-center">
+        <!-- Logo -->
+        <div class="logo mx-auto mb-6">
+            <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10L60 35L90 35L65 55L75 85L50 65L25 85L35 55L10 35L40 35L50 10Z" fill="#facc15"/>
+                <path d="M50 10L60 35L90 35L65 55L75 85L50 65L25 85L35 55L10 35L40 35L50 10Z" stroke="#1e293b" stroke-width="5" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h1 class="text-5xl font-black text-yellow-400 mb-2 title-shadow">Juego de Escaños</h1>
+        <p class="text-slate-300 mb-8">¿Cuánto tiempo aguantarás en el poder?</p>
+        <button id="start-button" class="start-button text-2xl font-bold py-4 px-10 rounded-lg">
+            Empezar Partida
+        </button>
+    </div>
 
-        <!-- 1. Top HUD (Stats) -->
+    <!-- Game Container (Initially Hidden) -->
+    <div id="game-container" class="w-full max-w-md h-full flex-col hidden">
+
+        <!-- Top HUD -->
         <div id="hud" class="w-full pt-4 pb-8 space-y-3">
-            <h1 class="text-center text-2xl font-black text-yellow-300" style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Juego de Escaños</h1>
-            <div class="flex items-center space-x-3">
-                <span class="hud-icon text-2xl">👨‍👩‍👧‍👦</span>
-                <div class="w-full progress-bar-container rounded-full h-4"><div id="pop-bar" class="progress-bar bg-blue-500 h-4 rounded-full"></div></div>
-                <span id="pop-preview" class="stat-preview font-bold w-10 text-center"></span>
+             <div class="flex items-center space-x-3">
+                <span class="hud-icon">👨‍👩‍👧‍👦</span>
+                <div class="progress-bar-container"><div id="pop-bar" class="progress-bar bg-blue-500"></div></div>
+                <span id="pop-preview" class="stat-preview"></span>
             </div>
             <div class="flex items-center space-x-3">
-                <span class="hud-icon text-2xl">💰</span>
-                <div class="w-full progress-bar-container rounded-full h-4"><div id="tes-bar" class="progress-bar bg-green-500 h-4 rounded-full"></div></div>
-                <span id="tes-preview" class="stat-preview font-bold w-10 text-center"></span>
+                <span class="hud-icon">💰</span>
+                <div class="progress-bar-container"><div id="tes-bar" class="progress-bar bg-green-500"></div></div>
+                <span id="tes-preview" class="stat-preview"></span>
             </div>
             <div class="flex items-center space-x-3">
-                <span class="hud-icon text-2xl">🐺</span>
-                <div class="w-full progress-bar-container rounded-full h-4"><div id="par-bar" class="progress-bar bg-red-500 h-4 rounded-full"></div></div>
-                <span id="par-preview" class="stat-preview font-bold w-10 text-center"></span>
+                <span class="hud-icon">🐺</span>
+                <div class="progress-bar-container"><div id="par-bar" class="progress-bar bg-red-500"></div></div>
+                <span id="par-preview" class="stat-preview"></span>
             </div>
             <div class="flex items-center space-x-3">
-                <span class="hud-icon text-2xl">📰</span>
-                <div class="w-full progress-bar-container rounded-full h-4"><div id="med-bar" class="progress-bar bg-purple-500 h-4 rounded-full"></div></div>
-                <span id="med-preview" class="stat-preview font-bold w-10 text-center"></span>
+                <span class="hud-icon">📰</span>
+                <div class="progress-bar-container"><div id="med-bar" class="progress-bar bg-purple-500"></div></div>
+                <span id="med-preview" class="stat-preview"></span>
             </div>
         </div>
 
@@ -48,16 +60,16 @@
             <p id="consequence-text" class="text-yellow-300 font-semibold italic opacity-0"></p>
         </div>
 
-        <!-- Middle Zone (Character & Card) -->
+        <!-- Middle Zone -->
         <div id="card-area" class="relative flex-grow flex items-center justify-center">
-            <img id="character-image" src="https://placehold.co/300x400/7c3aed/ffffff?text=Personaje" alt="Personaje" class="character-img absolute w-4/5 max-w-xs h-auto object-contain -top-10">
-            <div id="card" class="card absolute w-full h-56 bg-white rounded-2xl p-4 text-gray-800 flex flex-col justify-center items-center text-center">
+            <img id="character-image" src="" alt="Personaje" class="character-img">
+            <div id="card" class="card">
                 <h2 id="card-character-name" class="font-bold text-xl mb-2"></h2>
                 <p id="card-text" class="text-base"></p>
             </div>
         </div>
 
-        <!-- Bottom Zone (Decision Text) -->
+        <!-- Bottom Zone -->
         <div id="decision-area" class="w-full h-24 flex justify-between items-center px-4">
             <p id="decision-left" class="decision-text w-2/5 text-left font-bold text-lg"></p>
             <p id="decision-right" class="decision-text w-2/5 text-right font-bold text-lg"></p>
@@ -66,16 +78,14 @@
 
     <!-- Game Over Modal -->
     <div id="game-over-modal" class="absolute inset-0 bg-black bg-opacity-80 flex-col items-center justify-center text-center p-8 hidden opacity-0 transition-opacity">
-        <h2 id="game-over-title" class="text-4xl font-black text-red-500 mb-4">¡FIN DE LA PARTIDA!</h2>
+        <h2 id="game-over-title" class="text-4xl font-black text-red-500 mb-4 title-shadow">¡FIN DE LA PARTIDA!</h2>
         <p id="game-over-text" class="text-xl mb-6"></p>
-        <button id="restart-button" class="bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-lg text-xl hover:bg-yellow-300 transition-colors">Volver a Intentarlo</button>
+        <button id="restart-button" class="start-button text-xl font-bold py-3 px-8 rounded-lg">Volver al Menú</button>
     </div>
 
     <!-- Feedback Popup Container -->
     <div id="feedback-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
 
-    <!-- Enlace a los archivos JavaScript -->
-    <!-- El orden es importante: primero los datos, luego la lógica, y al final el inicio. -->
     <script src="js/cards.js"></script>
     <script src="js/game.js"></script>
     <script src="js/main.js"></script>
