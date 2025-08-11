@@ -4,7 +4,6 @@ let shuffledCards = [];
 let currentCardIndex = 0;
 
 // --- DOM ELEMENTS ---
-// References to DOM elements are established. These are assumed to be present in the HTML.
 const cardEl = document.getElementById('card');
 const hud = {
     pop: { bar: document.getElementById('pop-bar'), preview: document.getElementById('pop-preview') },
@@ -12,11 +11,10 @@ const hud = {
     par: { bar: document.getElementById('par-bar'), preview: document.getElementById('par-preview') },
     med: { bar: document.getElementById('med-bar'), preview: document.getElementById('med-preview') },
 };
-const decisionLeftEl = document.getElementById('decision-left');
-const decisionRightEl = document.getElementById('decision-right');
+// Corrected to use the single decision text element
+const decisionTextEl = document.getElementById('decision-text'); 
 const consequenceTextEl = document.getElementById('consequence-text');
 const gameOverModal = document.getElementById('game-over-modal');
-// The 'restartButton' constant is removed from here. It's now handled only in main.js
 
 // --- GAME LOGIC FUNCTIONS ---
 
@@ -33,7 +31,7 @@ function initGame() {
 
     updateUI();
     drawCard();
-    addDragListeners(); // Renamed for clarity
+    addDragListeners();
 }
 
 function updateUI() {
@@ -55,12 +53,10 @@ function drawCard() {
     document.getElementById('card-text').textContent = cardData.text;
     document.getElementById('character-image').src = cardData.character;
     
-    decisionLeftEl.textContent = cardData.left.text;
-    decisionRightEl.textContent = cardData.right.text;
-    decisionLeftEl.style.opacity = 0;
-    decisionRightEl.style.opacity = 0;
+    // Clear decision text for the new card
+    decisionTextEl.style.opacity = 0;
 }
-
+        
 function showFeedback(stat, change) {
     if (change === 0) return;
     const feedbackContainer = document.getElementById('feedback-container');
@@ -92,7 +88,7 @@ function showPreview(direction) {
         }
     }
 }
-
+        
 function hidePreview() {
     for (const key in hud) {
         hud[key].preview.classList.remove('visible');
@@ -109,7 +105,7 @@ function showConsequences(consequenceText) {
         consequenceTextEl.textContent = '';
     }, 3500);
 }
-
+        
 function checkGameOver() {
     for (const key in gameState.stats) {
         if (gameState.stats[key] <= 0 || gameState.stats[key] >= 100) {
@@ -183,17 +179,19 @@ function onDragMove(e) {
     const rotation = currentX / 20;
     cardEl.style.transform = `translateX(${currentX}px) rotate(${rotation}deg)`;
     
+    const cardData = shuffledCards[currentCardIndex];
+    
+    // Logic to show the correct decision text based on drag direction
     if (currentX > 20) { // Dragging right
-        decisionRightEl.style.opacity = 1;
-        decisionLeftEl.style.opacity = 0;
+        decisionTextEl.textContent = cardData.right.text;
+        decisionTextEl.style.opacity = Math.min(1, Math.abs(currentX) / dragThreshold);
         showPreview('right');
     } else if (currentX < -20) { // Dragging left
-        decisionLeftEl.style.opacity = 1;
-        decisionRightEl.style.opacity = 0;
+        decisionTextEl.textContent = cardData.left.text;
+        decisionTextEl.style.opacity = Math.min(1, Math.abs(currentX) / dragThreshold);
         showPreview('left');
     } else { // Center
-        decisionLeftEl.style.opacity = 0;
-        decisionRightEl.style.opacity = 0;
+        decisionTextEl.style.opacity = 0;
         hidePreview();
     }
 }
@@ -203,8 +201,7 @@ function onDragEnd() {
     isDragging = false;
     cardEl.classList.remove('dragging');
     hidePreview();
-    decisionLeftEl.style.opacity = 0;
-    decisionRightEl.style.opacity = 0;
+    decisionTextEl.style.opacity = 0;
 
     if (currentX > dragThreshold) {
         handleDecision('right');
