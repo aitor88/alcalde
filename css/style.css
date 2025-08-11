@@ -1,10 +1,9 @@
 body {
     font-family: 'Inter', sans-serif;
     touch-action: none;
-    background-color: #020617; /* slate-950 */
-    background-image: radial-gradient(#1e293b 1px, transparent 1px);
-    background-size: 20px 20px;
-    -webkit-tap-highlight-color: transparent; /* Removes blue flash on tap on iOS */
+    background-color: #0d1222; /* Darker background */
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* --- Screen Management --- */
@@ -15,13 +14,59 @@ body {
     opacity: 0;
     pointer-events: none;
     transform: scale(0.95);
-    display: none; /* Ensure it's not taking up space */
+    display: none;
 }
 
-/* --- Main Menu & Common --- */
-.title-shadow { text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+/* --- Typography --- */
+.main-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem; /* text-5xl */
+    font-weight: 800; /* extrabold */
+    color: #f1f5f9; /* slate-100 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.screen-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 700; /* bold */
+    color: #f1f5f9; /* slate-100 */
+}
+.mayor-name, .timeline {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.125rem; /* text-lg */
+}
+.mayor-name { color: #cbd5e1; } /* slate-300 */
+.timeline { color: #facc15; } /* yellow-400 */
+
+/* --- Buttons & Inputs --- */
+.start-button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem; /* text-xl */
+    width: 100%;
+    max-width: 288px; /* max-w-xs */
+    padding: 1rem 0;
+    border-radius: 0.75rem; /* rounded-xl */
+    background-color: #facc15;
+    color: #1e293b;
+    box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2), inset 0 -3px 0 rgba(0,0,0,0.2);
+    transition: all 0.15s ease-out;
+}
+.start-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(250, 204, 21, 0.25), inset 0 -3px 0 rgba(0,0,0,0.2);
+}
+.start-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(250, 204, 21, 0.2), inset 0 -2px 0 rgba(0,0,0,0.2);
+}
 .name-input {
     font-family: 'Poppins', sans-serif;
+    width: 100%;
+    max-width: 288px;
+    margin-bottom: 1.5rem;
+    text-align: center;
     background-color: #1e293b;
     border: 2px solid #334155;
     color: #f1f5f9;
@@ -35,21 +80,6 @@ body {
     outline: none;
     border-color: #facc15;
     box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.2);
-}
-.start-button {
-    font-family: 'Poppins', sans-serif;
-    background-color: #facc15;
-    color: #1e293b;
-    box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
-    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.start-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(250, 204, 21, 0.25);
-}
-.start-button:active {
-    transform: translateY(0px);
-    box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
 }
 
 /* --- Game HUD --- */
@@ -87,7 +117,7 @@ body {
 }
 .stat-preview.visible { opacity: 1; transform: scale(1); }
 
-/* --- Card & Character --- */
+/* --- Card --- */
 .card-area {
     position: relative;
     flex-grow: 1;
@@ -101,15 +131,16 @@ body {
     width: 100%;
     height: 95%;
     max-height: 450px;
-    background-color: #f1f5f9;
+    background-color: #e2e8f0; /* slate-200 */
     color: #1e293b;
     border-radius: 1.5rem;
+    border: 1px solid #94a3b8; /* slate-400 */
     display: flex;
     flex-direction: column;
     overflow: hidden;
     cursor: grab;
     user-select: none;
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2), 0 8px 10px -6px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3);
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
     transform-origin: center bottom;
 }
@@ -123,30 +154,48 @@ body {
 }
 .card-image {
     width: 100%;
-    height: 60%;
+    height: 55%;
     object-fit: cover;
     pointer-events: none;
+    border-bottom: 1px solid #cbd5e1; /* slate-300 */
 }
 .card-text-content {
-    padding: 1.25rem;
+    padding: 1rem 1.25rem;
     text-align: center;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-#card-character-name {
+.card-character-name {
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
+    font-size: 1.25rem; /* text-xl */
+    margin-bottom: 0.5rem;
+}
+.card-dialogue {
+    font-size: 1rem; /* text-base */
+    color: #334155; /* slate-700 */
+    line-height: 1.4;
 }
 
 /* --- Text & Feedback --- */
 .decision-text {
+    height: 3rem; /* h-12 */
+    text-align: center;
+    font-weight: 700; /* bold */
+    font-size: 1.125rem; /* text-lg */
+    color: #f1f5f9; /* slate-100 */
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 .consequence-text {
+    height: 2.5rem; /* h-10 */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #facc15; /* yellow-400 */
+    opacity: 0;
     transition: opacity 0.4s ease-in-out;
 }
 .feedback-popup {
