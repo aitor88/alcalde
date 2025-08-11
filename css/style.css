@@ -1,6 +1,6 @@
 :root {
     --card-width: 100%;
-    --card-height: 224px; /* 14rem */
+    --card-height: 420px;
 }
 
 body {
@@ -10,9 +10,7 @@ body {
 }
 
 /* --- Main Menu --- */
-.title-shadow {
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
+.title-shadow { text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 .start-button {
     background-color: #facc15; /* yellow-400 */
     color: #1e293b; /* slate-800 */
@@ -29,9 +27,14 @@ body {
 }
 
 /* --- Game HUD --- */
+.hud-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* space-x-3 */
+}
 .hud-icon-wrapper {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -40,8 +43,8 @@ body {
 }
 .progress-bar-container {
     width: 100%;
-    height: 0.75rem; /* h-3 */
-    background-color: rgba(0,0,0,0.3);
+    height: 12px;
+    background-color: rgba(0,0,0,0.4);
     border-radius: 9999px;
     overflow: hidden;
 }
@@ -66,37 +69,38 @@ body {
 }
 
 /* --- Card & Character --- */
-.character-img {
-    position: absolute;
-    width: 80%;
-    max-width: 288px; /* max-w-xs */
-    height: auto;
-    object-fit: contain;
-    top: -2.5rem; /* -top-10 */
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
 .card {
     position: absolute;
     width: var(--card-width);
     height: var(--card-height);
     background-color: #f1f5f9; /* slate-100 */
     color: #1e293b; /* slate-800 */
-    border-radius: 1.25rem; /* rounded-2xl */
-    padding: 1.25rem;
+    border-radius: 1.5rem; /* rounded-3xl */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    overflow: hidden;
     cursor: grab;
     user-select: none;
-    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2), 0 8px 10px -6px rgba(0,0,0,0.2);
-    transition: transform 0.1s ease-out, opacity 0.2s ease-out;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2), 0 8px 10px -6px rgba(0,0,0,0.2);
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .card.dragging {
     cursor: grabbing;
     transition: none;
+}
+.card-image {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    pointer-events: none; /* Important for drag events */
+}
+.card-text-content {
+    padding: 1.25rem;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* --- Text & Feedback --- */
