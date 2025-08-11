@@ -1,9 +1,8 @@
 const cards = [
-    // --- Cartas de Sátira y Humor ---
     {
         name: "Izan Putiérrez",
-        text: "Mis patinetes son el futuro, alcalde, pero los jubilados los usan de barricada. ¿Apoyarás el progreso o cederás ante ellos?",
-        character: "https://placehold.co/300x400/10b981/ffffff?text=Emprendedor",
+        text: "Mis patinetes son el futuro, {playerName}, pero los jubilados los usan de barricada. ¿Apoyarás el progreso o cederás ante ellos?",
+        character: "https://placehold.co/400x300/10b981/ffffff?text=Emprendedor",
         left: {
             text: "Multazo y que los retiren",
             effects: { pop: 7, tes: 4, med: -5, par: 0 },
@@ -17,8 +16,8 @@ const cards = [
     },
     {
         name: "Monseñor Benigno",
-        text: "La Catedral es un lugar de culto, no un negocio. ¿Nos obligarás a pagar el IBI como a cualquier empresa, alcalde?",
-        character: "https://placehold.co/300x400/8b5cf6/ffffff?text=Obispo",
+        text: "La Catedral es un lugar de culto, no un negocio. ¿Nos obligarás a pagar el IBI como a cualquier empresa, {playerName}?",
+        character: "https://placehold.co/400x300/8b5cf6/ffffff?text=Obispo",
         left: {
             text: "La ley es la ley. Que paguen.",
             effects: { pop: 5, tes: 10, med: 0, par: -5 },
@@ -33,7 +32,7 @@ const cards = [
     {
         name: "Paco 'El Cuñao'",
         text: "Primo, mi escultura para la rotonda es un chollo y lo sabes. ¿Vas a hacer la vista gorda o me vas a tratar como a un extraño?",
-        character: "https://placehold.co/300x400/ec4899/ffffff?text=Cuñado",
+        character: "https://placehold.co/400x300/ec4899/ffffff?text=Cuñado",
         left: {
             text: "¡Qué arte! Adjudicado.",
             effects: { pop: -8, tes: -10, med: 0, par: 5 },
@@ -46,70 +45,9 @@ const cards = [
         }
     },
     {
-        name: "Agustín Fasto",
-        text: "Alcalde, un DJ famoso nos dará prestigio en las fiestas, aunque cueste el triple del presupuesto. ¿Invertimos en imagen?",
-        character: "https://placehold.co/300x400/f97316/ffffff?text=Concejal",
-        left: {
-            text: "Que suene la música",
-            effects: { pop: 9, tes: -12, med: 5, par: 0 },
-            consequence: "Los jóvenes te adoran y sales en la tele, pero dejas un agujero en las cuentas municipales."
-        },
-        right: {
-            text: "La orquesta de siempre y gracias",
-            effects: { pop: -4, tes: 3, med: -3, par: 0 },
-            consequence: "Los mayores contentos y te ahorras un dineral. Los jóvenes te llaman 'carca'."
-        }
-    },
-    {
-        name: "Manolo del Bar",
-        text: "Conozco tus problemas, alcalde, pero necesito más mesas en la terraza para sobrevivir. ¿Me harás un favor?",
-        character: "https://placehold.co/300x400/3b82f6/ffffff?text=Hostelero",
-        left: {
-            text: "Por supuesto, Manolo.",
-            effects: { pop: 5, tes: 0, med: -4, par: 3 },
-            consequence: "El gremio de hosteleros te apoya, pero la asociación de vecinos te declara la guerra."
-        },
-        right: {
-            text: "Las normas son para todos.",
-            effects: { pop: -6, tes: 0, med: 4, par: -3 },
-            consequence: "Los peatones respiran aliviados, pero Manolo se asegura de que todo el mundo sepa que eres un 'estirado'."
-        }
-    },
-    // --- Cartas de Calado y Decisiones Serias ---
-    {
-        name: "José Huelgas",
-        text: "La fábrica cierra y nos deja en la calle. ¿Vas a rescatarnos con una subvención o nos abandonarás a nuestra suerte?",
-        character: "https://placehold.co/300x400/475569/ffffff?text=Sindicalista",
-        left: {
-            text: "Subvención millonaria para que se queden.",
-            effects: { pop: 10, tes: -12, med: 0, par: 0 },
-            consequence: "Salvas los empleos hoy, pero hipotecas el futuro del ayuntamiento."
-        },
-        right: {
-            text: "Crear un plan de re-formación profesional.",
-            effects: { pop: -10, tes: -5, med: 0, par: 0 },
-            consequence: "Es una inversión a largo plazo, pero ahora mismo la gente te quiere linchar."
-        }
-    },
-    {
-        name: "Begoña Ladrillo",
-        text: "Mi urbanización de lujo en 'El Pinar' traerá riqueza. ¿Protegerás unos cuantos árboles o apostarás por el desarrollo económico?",
-        character: "https://placehold.co/300x400/ca8a04/ffffff?text=Promotora",
-        left: {
-            text: "¡A recalificar! El progreso es imparable.",
-            effects: { pop: -9, tes: 12, med: 0, par: 8 },
-            consequence: "Las arcas municipales rebosan y tu partido te aplaude. Los ecologistas se encadenan a los árboles."
-        },
-        right: {
-            text: "Esa zona verde no se toca.",
-            effects: { pop: 8, tes: -4, med: 0, par: -6 },
-            consequence: "La gente te ve como un defensor de la naturaleza, pero la constructora financiará a tu rival."
-        }
-    },
-    {
         name: "Dra. Ana Remedios",
-        text: "Nos obligan a recortar en el centro de salud. ¿Qué sacrificamos, alcalde, las urgencias nocturnas o el puesto de mis compañeros?",
-        character: "https://placehold.co/300x400/dc2626/ffffff?text=Doctora",
+        text: "Nos obligan a recortar en el centro de salud. ¿Qué sacrificamos, {playerName}, las urgencias nocturnas o el puesto de mis compañeros?",
+        character: "https://placehold.co/400x300/dc2626/ffffff?text=Doctora",
         left: {
             text: "Cerraremos las urgencias nocturnas.",
             effects: { pop: -12, tes: 6, med: -5, par: 0 },
@@ -119,36 +57,6 @@ const cards = [
             text: "Me niego. La sanidad es sagrada.",
             effects: { pop: 10, tes: -8, med: 6, par: 0 },
             consequence: "Eres un héroe para el pueblo, pero te enfrentas a una guerra abierta con el gobierno regional."
-        }
-    },
-    {
-        name: "Antonio Candado",
-        text: "Tenemos miedo de salir por la noche en nuestro propio barrio. ¿Pondrás más policía o invertirás en programas sociales que tardarán años?",
-        character: "https://placehold.co/300x400/57534e/ffffff?text=Vecino",
-        left: {
-            text: "Más presencia policial en las calles.",
-            effects: { pop: 7, tes: -6, med: 0, par: 5 },
-            consequence: "La sensación de seguridad aumenta a corto plazo, pero algunos te acusan de crear un estado policial."
-        },
-        right: {
-            text: "Invertir en programas sociales y educativos.",
-            effects: { pop: -5, tes: -8, med: 0, par: -4 },
-            consequence: "Atacas la raíz del problema, pero los resultados tardarán años. Ahora mismo, los vecinos te ven como un blando."
-        }
-    },
-    {
-        name: "Gema Verde",
-        text: "El río baja de un color muy feo y creemos que es por los vertidos de una fábrica. ¿Abrirás una investigación o mirarás para otro lado?",
-        character: "https://placehold.co/300x400/059669/ffffff?text=Ecologista",
-        left: {
-            text: "Abrir una investigación a fondo.",
-            effects: { pop: 6, tes: -7, med: 5, par: 0 },
-            consequence: "La gente valora tu compromiso, pero los empresarios del polígono te declaran persona non grata."
-        },
-        right: {
-            text: "Es solo arcilla del fondo, no hay que alarmar.",
-            effects: { pop: -8, tes: 0, med: -6, par: 6 },
-            consequence: "Los empresarios respiran aliviados, pero como el río vaya a más, el escándalo será mayúsculo."
         }
     }
 ];
